@@ -30,11 +30,17 @@
         <!-- 方式二、穿一个数组，同时引用多个样式 -->
         <!-- <p :class="[cls, bg]">Saber</p> -->
 
-        <!-- 方式三、json形式 !!! 常用 -->
-        <!-- <p :class="{text: true, cc: flag}">Saber</p> -->
+        <!-- 方式三、json形式 !!! 常用 -> 对象的 key 为 classname 值为 Boolean，值 为 true 代表采用当前classname 值为 false 则不采用 -->
+        <p :class="{text: true, cc: flag}">Saber</p>
         
         <!-- 当 num 大于 3 的时候引用 text 样式，否则 -->
         <!-- <p :class="{text: num > 3 ? true : false}">Saber</p> -->
+
+        <!-- 采用 json 引入的方式 -->
+        <!-- <p :class="myCls">Saber</p> -->
+
+        <!-- 设置内联样式 -->
+        <p :style="stylus">可可</p>
     </div>
 
     <script>
@@ -46,8 +52,18 @@
                 h: '100px',
                 cls: 'text',
                 bg: 'cc',
-                flag: false,
-                num: 4
+                flag: true,
+                num: 4,
+                myCls: {
+                    text: true,
+                    cc: true
+                },
+                stylus: {
+                    color: 'teal',
+                    fontSize: '30px',
+                    backgroundColor: 'yellow',
+                    paddingLeft: '10px'
+                }
             }
         });
     </script>

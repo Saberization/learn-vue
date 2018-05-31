@@ -112,7 +112,7 @@ v-on:click=""
 @keypress.up="";
 ```
 
-默认没有 @keydown.a/b/c...事件，可以自定义键盘事件，也称为自定义键码或自定义键位别名 `Vue.config.keyCodes` [详细使用方法](https://cn.vuejs.org/v2/api/#keyCodes)
+默认没有 `@keydown.a/b/c...` 事件，可以自定义键盘事件，也称为自定义键码或自定义键位别名 `Vue.config.keyCodes` [详细使用方法](https://cn.vuejs.org/v2/api/#keyCodes)
 
 #### 1.6 事件修饰符
 
@@ -128,6 +128,56 @@ v-on:click=""
 
 `v-bind` 用于属性绑定，`v-bind:属性=""`
 
-属性的简写：`:src=""`
+`v-bind:src=""`、`v-bind:class`、`v-bind:style` 可以简写为：`:src=""`、`:class=""`、`:style=""`
 
 #### 2.2 class和style属性
+
+设置 `classname`
+
+```css
+.text {
+    color: #f00;
+    font-size: 16px;
+}
+
+.cc {
+    background-color: #333;
+}
+```
+
+```html
+<!-- 在使用Vue绑定属性时，不能直接使用css样式，所以这样是会报错的 -->
+<p :class="text">Saber</p>
+
+<!-- 方式一、通过变量绑定 -->
+<p :class="cls">Saber</p>
+
+<!-- 方式二、可以传一个数组，同时使用 -->
+<p :class="[cls, bg]">Saber</p>
+
+<!-- 方式三、json格式数据 !!! 这个是最常用的方式(牢记)，key 为 clssname，值为 Boolean，值为 true 的时候，代表使用这个clssname，为 false，代表不使用这个 classname -->
+<p :class="{text: flag1, cc: flag2}">Saber</p>
+
+<!-- 当 num > 0 的时候使用 cc -->
+<p :class="{text: flag1, cc: num > 0 ? true : false}"></p>
+
+<!-- 方式四、采用 json 数据传入  -->
+<p :class="stylus">Saber</p>
+```
+
+```js
+new Vue({
+    el: '#app',
+    data: {
+        cls: 'text',
+        bg: 'cc',
+        flag1: true,
+        flag2: false,
+        num: 3,
+        stylus: {
+            text: true,
+            cc: true
+        }
+    }
+});
+```
