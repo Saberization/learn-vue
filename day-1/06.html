@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件简写与$event</title>
+    <script src="../libs/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div @click="div">
+            <p @click="p">
+                <!-- @click.stop 阻止事件冒泡 -->
+                <button @click.stop="button">点击我看看</button>
+            </p>
+        </div>
+
+        <a href="http://www.f2e.win" @click.prevent.stop="a">我是a标签</a>
+
+        用户名：
+        <input type="text" @keypress="keypress">
+
+        <!-- 事件修饰符 -->
+        <button @click.once="button">只触发一次</button>
+    </div>
+
+    <script>
+        /**
+         * 自定义键盘keyCodes事件，这样就能用 @keypress.a  @keypress.w 这样去判断了
+         */
+        Vue.config.keyCodes = {
+            a: 97,
+            w: 119
+        };
+
+        new Vue({
+            el: '#app',
+            methods: {
+                button() {
+                    console.log('button');
+                },
+                p() {
+                    console.log('p');
+                },
+                div() {
+                    console.log('div');
+                },
+                a() {
+                    console.log('a');
+                },
+                keypress() {
+                    console.log(event.keyCode);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!--
+    @Author: guotq
+    @Date: 
+    @Last Modified by: guotq
+    @Last Modified time: 
+    @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="format-detection" content="telephone=no" />
+        <script src="../libs/vue.js"></script>
+        <title>常用指令：v-on</title>
+    </head>
+    <body>
+        <div id="app">
+            <button v-on:click="show()">点击</button>
+            <button v-on:click="add()">点击向数组中添加一个元素</button>
+            <button v-on:click="del()">点击向数组中去除一个元素</button>
+            <button v-on:click="isShow=!isShow">显隐操作</button>
+
+            <br />
+            <button v-on:mouseover="mouseover">鼠标经过</button>
+
+            <div style="width: 100px; height: 100px; background-color: aqua;" v-if="isShow">看我显示了不</div>
+
+            {{arr}}
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                data: {  // 存储数据
+                    arr: [1, 2, 3, 4, 5],
+                    isShow: true
+                },
+                methods: { // 存储方法
+                    show: function () {
+                        console.log(this);
+                        console.log('trigger click');
+                    },
+                    add: function () {
+                        this.arr.push(10); // 使用 this 访问当前实例中的成员
+                    },
+                    del: function () {
+                        this.arr.shift();
+                    },
+                    mouseover: function () {
+                        console.log('mouseover');
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

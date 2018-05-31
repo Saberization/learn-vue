@@ -1,0 +1,39 @@
+<!--
+    @Author: guotq
+    @Date: 
+    @Last Modified by: guotq
+    @Last Modified time: 
+    @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="format-detection" content="telephone=no" />
+        <script src="../libs/vue.js"></script>
+        <title>Hellow World</title>
+    </head>
+    <body>
+        <div id="myapp">
+            {{msg}}
+        </div>
+
+        <script>
+            // 配置是否允许 vue-devtools 检查代码。开发版本默认为 true，生产版本默认为 false。生产版本设为 true 可以启用检查。
+            Vue.config.devtools = true;
+            // 设置为 false 以阻止 vue 在启动时生成生产提示。
+            Vue.config.productionTip = true;
+
+            new Vue({
+                el: '#myapp',
+                data: {
+                    msg: '可可'
+                }
+            });
+        </script>
+    </body>
+</html>

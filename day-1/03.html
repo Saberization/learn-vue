@@ -1,0 +1,71 @@
+<!--
+    @Author: guotq
+    @Date: 
+    @Last Modified by: guotq
+    @Last Modified time: 
+    @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="format-detection" content="telephone=no" />
+        <script src="../libs/vue.js"></script>
+        <title>常用指令：v-for</title>
+    </head>
+    <body>
+        <div id="myapp">
+            <ul>
+                <li v-for="item in arr">{{item}}</li>
+            </ul>
+
+            <ul>
+                <li v-for="item in arr2">{{item}}</li>
+            </ul>
+
+            <ul>
+                <!-- 在vue2.x 当中 key 与 value 位置颠倒了，value 在前，key 在后了 -->
+                <li v-for="(value, key, index) in arr3">{{key}} = {{value}} --- {{index}}</li>
+            </ul>
+
+            <ul>
+                <!-- 每个元素可以用 :key 绑定一个唯一标识，每次更新元素的时候可重用，提高效率，类似于 vue1.x 中的 track-by -->
+                <li v-for="(v, i) in arr4" :key="i">{{v}}</li>
+            </ul>
+
+            <ul>
+                <!-- 当数据为 Array 类型的时候，v-for 只有 value 与 index，只有当数据类型为 Object 键值对对象的时候，v-for 才有 value key index -->
+                <li v-for="(v, i) in arr5" :key="i">序号：{{i + 1}} 姓名：{{v.name}} 年龄：{{v.age}}</li>
+            </ul>
+        </div>
+
+        <script>
+            new Vue({
+                el: '#myapp',  // vue 2.x 不允许将 el 挂载到 <html> <body> 元素上，vue 1.x 中是可以的
+                data: {
+                    arr: [1, 2, 3, 4, 5],
+                    arr2: {
+                        name: '张三',
+                        age: '25'
+                    },
+                    arr3: {
+                        a: '1',
+                        b: '2'
+                    },
+                    arr4: [1, 2, 3, 4, 5, 6, 1, 6],
+                    arr5: [{
+                        name: 'Keke',
+                        age: '23'
+                    }, {
+                        name: '可可',
+                        age: '24'
+                    }]
+                }
+            });
+        </script>
+    </body>
+</html>

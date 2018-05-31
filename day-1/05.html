@@ -1,0 +1,204 @@
+<!--
+    @Author: guotq
+    @Date: 
+    @Last Modified by: guotq
+    @Last Modified time: 
+    @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="stylesheet" href="../libs/mui.min.css">
+        <script src="../libs/vue.js"></script>
+        <script src="../libs/mui.min.js"></script>
+        <title>用户管理练习</title>
+
+        <style>
+            body {
+                background-color: #fff;
+            }
+
+            h4 {
+                text-align: center;
+                background-color: #fff;
+                margin: 0 !important;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            table {
+                width: 100%;
+                text-align: center;
+                background-color: #fff;
+            }
+
+            table tr {
+                height: 44px;
+                line-height: 44px;
+            }
+
+            .mui-content {
+                background-color: #fff;
+            }
+
+            .delall {
+                float: right;
+                margin-right: 34px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mui-content" id="app">
+            <h4>添加用户</h4>
+
+            <form class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>姓名：</label>
+                    <input type="text" placeholder="请输入姓名" v-model="addPerson.name">
+                </div>
+                <div class="mui-input-row">
+                    <label>年龄：</label>
+                    <input type="text" placeholder="请输入年龄" v-model="addPerson.age">
+                </div>
+                <div class="mui-input-row">
+                    <label>邮箱：</label>
+                    <input type="text" placeholder="请输入邮箱" v-model="addPerson.email">
+                </div>
+                <div class="mui-button-row">
+                    <button type="button" class="mui-btn mui-btn-primary" onclick="return false;" v-on:click="add">添加
+                    </button>&nbsp;&nbsp;
+                    <button type="button" class="mui-btn mui-btn-danger" onclick="return false;" v-on:click="reset">重置
+                    </button>
+                </div>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>邮箱</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr v-for="(value, index) in items">
+                        <td>{{index}}</td>
+                        <td>{{value.name}}</td>
+                        <td>{{value.age}}</td>
+                        <td>{{value.email}}</td>
+                        <td>
+                            <input type="checkbox" v-bind:checked="isChecked" v-on:change="change(index)" />
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <button type="button" class="mui-btn mui-btn-primary delall" onclick="return false;" v-on:click="delAll">删除所有
+            </button>
+            <button type="button" class="mui-btn mui-btn-primary delall" onclick="return false;" v-on:click="del">删除</button>
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    items: [{
+                        name: '可可',
+                        age: 24,
+                        email: '406142765@qq.com'
+                    }, {
+                        name: '一罐寡言',
+                        age: 24,
+                        email: 'saberization@qq.com'
+                    }],
+                    addPerson: {
+                        name: '',
+                        age: '',
+                        email: ''
+                    },
+                    delPersonIndex: [],
+                    isChecked: false
+                },
+                methods: {
+                    add() {
+                        var addPerson = this.addPerson;
+
+                        if (!addPerson.name) {
+                            alert('请输入用户名');
+                            return;
+                        }
+
+                        if (!addPerson.age) {
+                            alert('请输入年龄');
+                            return;
+                        }
+
+                        if (!addPerson.email) {
+                            alert('请输入邮箱');
+                            return;
+                        }
+
+                        this.items.push({
+                            name: addPerson.name,
+                            age: addPerson.age,
+                            email: addPerson.email
+                        });
+
+                        this.reset();
+                    },
+                    del() {
+                        var delPerson = this.delPersonIndex,
+                            users = this.items;
+
+                        if (delPerson.length >= 1) {
+                            delPerson.forEach((e, i) => {
+                                delete users[e];
+                            });
+                        }
+
+                        this.items = users.filter((e) => {
+                            if (e) {
+                                return e;
+                            }
+                        });
+
+                        // 修复checked删除默认为checked的bug
+                        this.isChecked = false;
+                        this.delPersonIndex = [];
+                    },
+                    delAll() {
+                        this.items = [];
+                    },
+                    reset() {
+                        const addPerson = this.addPerson;
+
+                        Object.keys(addPerson).forEach(function (e, i) {
+                            addPerson[e] = '';
+                        });
+                    },
+                    change(index) {
+                        var checked = event.target.checked;
+                        var delPersonIndex = this.delPersonIndex;
+
+                        if (delPersonIndex.includes(index) && !checked) {
+                            delPersonIndex.splice(delPersonIndex.indexOf(index), 1);
+                        }
+                        else {
+                            delPersonIndex.push(index);
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

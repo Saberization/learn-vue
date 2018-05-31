@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>属性绑定和属性的简写</title>
+    <script src="../libs/vue.js"></script>
+    <style>
+        .text {
+            color: #f00;
+            font-size: 16px;
+        }
+
+        .cc {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <img :src="image" :width="w" :height="h" alt="" />
+
+        <!-- 在使用Vue绑定属性时，不能直接使用css样式 -->
+        <!-- <p :class="text">Saber</p> -->
+
+        <!-- 方式一、通过变量的方式去设置 -->
+        <!-- <p :class="cls">Saber</p> -->
+
+        <!-- 方式二、穿一个数组，同时引用多个样式 -->
+        <!-- <p :class="[cls, bg]">Saber</p> -->
+
+        <!-- 方式三、json形式 !!! 常用 -->
+        <!-- <p :class="{text: true, cc: flag}">Saber</p> -->
+        
+        <!-- 当 num 大于 3 的时候引用 text 样式，否则 -->
+        <!-- <p :class="{text: num > 3 ? true : false}">Saber</p> -->
+    </div>
+
+    <!-- v-for 当 遍历的是对象的时候，有 value、key、index 三个属性，遍历数组的时候，则只有 value index 两个属性 -->
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                image: 'http://www.f2e.win/images/toux.jpg',
+                w: '200px',
+                h: '100px',
+                cls: 'text',
+                bg: 'cc',
+                flag: false,
+                num: 4
+            }
+        });
+    </script>
+</body>
+</html>
