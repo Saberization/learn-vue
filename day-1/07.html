@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,55 +18,58 @@
         }
     </style>
 </head>
+
 <body>
     <div id="app">
-        <img :src="image" :width="w" :height="h" alt="" />
+        <!-- 事件监听 v-on 的简写是 @event 属性绑定 v-bind 的简写是 :property -->
+        <button @click="trigger">click me</button>
+        <!-- 绑定属性 src -->
+        <img :src="img">
 
-        <!-- 在使用Vue绑定属性时，不能直接使用css样式 -->
-        <!-- <p :class="text">Saber</p> -->
+        <!-- 第一种方式：通过变量引入css -->
+        <!-- <p :class="cls1">Saber</p> -->
 
-        <!-- 方式一、通过变量的方式去设置 -->
-        <!-- <p :class="cls">Saber</p> -->
+        <!-- 第二种方式：传入数组，使用两种css -->
+        <!-- <p :class="[cls1, cls2]">Saber</p> -->
 
-        <!-- 方式二、穿一个数组，同时引用多个样式 -->
-        <!-- <p :class="[cls, bg]">Saber</p> -->
+        <!-- 第三种方式：传入 json，当传入的为json的时候，可以直接使用定义的 classname，而不需要在 vue.data 中定义变量 -->
+        <!-- 键为 css 中定义的 classname、值为 boolean，true为使用、false为不使用 -->
+        <p :class="{text: true, cc: false}">Saber</p>
 
-        <!-- 方式三、json形式 !!! 常用 -> 对象的 key 为 classname 值为 Boolean，值 为 true 代表采用当前classname 值为 false 则不采用 -->
-        <p :class="{text: true, cc: flag}">Saber</p>
-        
-        <!-- 当 num 大于 3 的时候引用 text 样式，否则 -->
-        <!-- <p :class="{text: num > 3 ? true : false}">Saber</p> -->
-
-        <!-- 采用 json 引入的方式 -->
-        <!-- <p :class="myCls">Saber</p> -->
+        <!-- 第四种方式：在 vue.data 当中定义变量json引入 -->
+        <p :class="cls">Aimer</p>
 
         <!-- 设置内联样式 -->
-        <p :style="stylus">可可</p>
+        <div :style="stylus"></div>
     </div>
 
-    <script>
+    <script src="https://js.fundebug.cn/fundebug.1.1.1.min.js"
+  apikey="ed129021082fa9ca7e4bf2a334d60b6601ea7d05d4701b8f5d5ed6d86d9933f9"></script>
+
+    <script>    
         new Vue({
             el: '#app',
             data: {
-                image: 'http://www.f2e.win/images/toux.jpg',
-                w: '200px',
-                h: '100px',
-                cls: 'text',
-                bg: 'cc',
-                flag: true,
-                num: 4,
-                myCls: {
+                img: 'https://sfault-avatar.b0.upaiyun.com/336/306/336306879-5b04b871aa8a3_huge256',
+                cls1: 'text',
+                cls2: 'cc',
+                cls: {
                     text: true,
                     cc: true
                 },
                 stylus: {
-                    color: 'teal',
-                    fontSize: '30px',
-                    backgroundColor: 'yellow',
-                    paddingLeft: '10px'
+                    width: '100px',
+                    height: '100px',
+                    backgroundColor: 'teal'
+                }
+            },
+            methods: {
+                trigger: function () {
+                    console.log('click');
                 }
             }
         });
     </script>
 </body>
+
 </html>
