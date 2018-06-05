@@ -156,7 +156,7 @@ v-on:click=""
 <p :class="[cls, bg]">Saber</p>
 
 <!-- 方式三、json格式数据 !!! 这个是最常用的方式(牢记)，key 为 clssname，值为 Boolean，值为 true 的时候，代表使用这个clssname，为 false，代表不使用这个 classname -->
-<p :class="{text: flag1, cc: flag2}">Saber</p>
+<p :class="cls">Saber</p>
 
 <!-- 当 num > 0 的时候使用 cc -->
 <p :class="{text: flag1, cc: num > 0 ? true : false}"></p>
@@ -174,6 +174,10 @@ new Vue({
         flag1: true,
         flag2: false,
         num: 3,
+        cls: {
+            text: true,
+            cc: true  
+        },
         stylus: {
             text: true,
             cc: true
@@ -181,3 +185,19 @@ new Vue({
     }
 });
 ```
+
+## 四、模板
+
+### 1、简介
+
+Vue.js 使用基于 HTML 的模板语法，可以将 DOM 绑定到 Vue 实例中的数据
+模板就是 {{}}，用来进行数据绑定，显示在页面中，也成为 Mustache 语法
+
+### 2、数据绑定的方式
+
+    a.双向绑定
+        v-model
+    
+    b.单向绑定
+        方式1：使用两队大括号{{}}，可能会出现闪烁的问题，可以给元素设置 `v-clock` (要预先给 `v-cloak` 设置 `display: none`) 官网说明：[https://cn.vuejs.org/v2/api/#v-cloak](https://cn.vuejs.org/v2/api/#v-cloak)
+        方式2：使用 `v-text`、`v-html`

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>模板</title>
+    <script src="../libs/vue.js"></script>
+
+    <style>
+        /* 必须配置css样式，否则不生效 */
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        用户名：
+        <input type="text" v-model="msg">
+        <h3 v-cloak>{{msg}}</h3>
+
+        你如输入的用户名：
+        <span v-cloak>{{msg}}</span>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'Saber'
+            },
+            // 生命周期 - 当 vue 实例刚创建的时候触发 created
+            created: function () {
+                console.log('');
+            }
+        });
+    </script>
+</body>
+
+</html>
