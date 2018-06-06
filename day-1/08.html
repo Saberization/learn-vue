@@ -23,6 +23,9 @@
         信息：<input type="text" v-model="msg">
         <p v-cloak>{{msg}}</p>
 
+        <p v-text="text"></p>
+        <p v-html="html"></p>
+
         {{msg}}
     </div>
 
@@ -30,7 +33,9 @@
         new Vue({
             el: '#app',
             data: {
-                msg: ''
+                msg: '',
+                text: '<p>v-text</p>',
+                html: '<p>hahahah</p>'
             },
             // created 生命周期：创建vue实例之前触发
             created: function () {
