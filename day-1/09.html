@@ -1,0 +1,79 @@
+<!--
+    @Author: guotq
+    @Date: 
+    @Last Modified by: guotq
+    @Last Modified time: 
+    @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="format-detection" content="telephone=no" />
+        <title>过滤器</title>
+        <script src="../libs/vue.js"></script>
+    </head>
+    <body>
+
+        <div id="app">
+            <h3>{{18 | addZero}}</h3>
+
+            <h3>{{12.045 | fixed(2)}}</h3>
+
+            <h3>{{curdate | date}}</h3>
+        </div>
+
+
+        <script>
+            Number.prototype.toFixed = function (s) {
+                var changenum = (parseInt(this * Math.pow(10, s) + 0.5) / Math.pow(10, s)).toString();
+
+                index = changenum.indexOf(".");
+
+                if (index < 0 && s > 0) {
+                    changenum = changenum + ".";
+                    for (i = 0; i < s; i++) {
+                        changenum = changenum + "0";
+                    }
+
+                } else {
+                    index = changenum.length - index;
+
+                    for (i = 0; i < (s - index) + 1; i++) {
+                        changenum = changenum + "0";
+                    }
+                }
+
+                return changenum;
+            };
+
+            // 注册全局过滤器 Vue.filter -> 过滤器函数的value就是这里的8
+            Vue.filter('addZero', function (value) {
+                return value < 10 ? '0' + value : value;
+            });
+
+            Vue.filter('fixed', function (value, value2) {
+                return value.toFixed(value2);
+            });
+
+            new Vue({
+                el: '#app',
+                data: {
+                    curdate: Date.now()
+                },
+                // 定义局部过滤器
+                filters: {
+                    date: (value) => {
+                        const today = new Date(value);
+
+                        return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + today.getMinutes();
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -201,3 +201,76 @@ Vue.js 使用基于 HTML 的模板语法，可以将 DOM 绑定到 Vue 实例中
     b.单向绑定
         方式1：使用两队大括号{{}}，可能会出现闪烁的问题，可以给元素设置 `v-clock` (要预先给 `v-cloak` 设置 `display: none`) 官网说明：[https://cn.vuejs.org/v2/api/#v-cloak](https://cn.vuejs.org/v2/api/#v-cloak)
         方式2：使用 `v-text`、`v-html`
+        
+### 3、其它指令
+
+    v-once: 数据只绑定一次 https://cn.vuejs.org/v2/api/#v-once
+    v-pre: 不编译直接原样显示语法 https://cn.vuejs.org/v2/api/#v-pre
+    
+## 五、过滤器
+
+### 1、简介
+
+用来过滤模型数据，在显示之前进行数据处理和筛选
+
+    语法：{{ data | filter1(参数) | filter2(参数) }}
+    
+### 2、关于内置过滤器问题
+
+vue1.x 中内置了许多过滤器，如：currency、uppercase、lowercase等等
+    
+vue2.0 中已经删除了所有内置过滤器
+
+如何解决：
+
+    a. 使用第三方工具库，如loadash、date-fns日期格式化、accounting.js
+    b. 使用自定义过滤器
+    
+### 3、自定义过滤器
+
+分类：全局过滤器、局部过滤器
+
+#### 3.1 自定义全局过滤器
+
+使用全局方法 `Vue.filter(过滤器ID, 过滤器函数)` [https://cn.vuejs.org/v2/api/#Vue-filter](https://cn.vuejs.org/v2/api/#Vue-filter)
+
+#### 3.2 自定义局部过滤器
+
+在选项内部传入 `filters` [https://cn.vuejs.org/v2/api/#filters](https://cn.vuejs.org/v2/api/#filters)
+
+__具体用法：__
+
+```html
+<div id="app">
+    <h3>{{num | toFixed}}</h3>
+</div>
+```
+
+```js
+// 局部定义过滤器，传入filters选项
+new Vue({
+    el: '#app',
+    data: {
+        num: 0
+    },
+    filters: {
+        toFixed: (value) => {
+            // do something...
+        }
+    }
+});
+```
+
+```js
+// 全部定义过滤器
+Vue.filter('toFixed', (value) => {
+    // do something...
+});
+
+new Vue({
+    el: '#app',
+    data: {
+        num: 0
+    }
+});
+```

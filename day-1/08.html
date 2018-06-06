@@ -23,8 +23,10 @@
         信息：<input type="text" v-model="msg">
         <p v-cloak>{{msg}}</p>
 
-        <p v-text="text"></p>
-        <p v-html="html"></p>
+        <p v-text="msg" v-if="isShow"></p>
+        <p v-html="msg"></p>
+        <p v-once>{{msg}}</p>
+        <p v-pre>{{msg}}</p>
 
         {{msg}}
     </div>
@@ -33,9 +35,8 @@
         new Vue({
             el: '#app',
             data: {
-                msg: '',
-                text: '<p>v-text</p>',
-                html: '<p>hahahah</p>'
+                msg: 'hahahah',
+                isShow: true
             },
             // created 生命周期：创建vue实例之前触发
             created: function () {
