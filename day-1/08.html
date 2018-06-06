@@ -10,8 +10,6 @@
     <script src="../libs/vue.js"></script>
 
     <style>
-        /* 必须配置css样式，否则不生效 */
-
         [v-cloak] {
             display: none;
         }
@@ -21,26 +19,26 @@
 <body>
 
     <div id="app">
-        用户名：
-        <input type="text" v-model="msg">
-        <h3 v-cloak>{{msg}}</h3>
+        <!-- 双向绑定 v-model 单向绑定 {{}} 两个大括号，或者 v-text、v-html -->
+        信息：<input type="text" v-model="msg">
+        <p v-cloak>{{msg}}</p>
 
-        你如输入的用户名：
-        <span v-cloak>{{msg}}</span>
+        {{msg}}
     </div>
 
     <script>
         new Vue({
             el: '#app',
             data: {
-                msg: 'Saber'
+                msg: ''
             },
-            // 生命周期 - 当 vue 实例刚创建的时候触发 created
+            // created 生命周期：创建vue实例之前触发
             created: function () {
-                console.log('');
+                console.log('创建vue实例之前触发 created');
             }
         });
     </script>
+
 </body>
 
 </html>
