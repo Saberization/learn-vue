@@ -65,12 +65,12 @@
                 data: {
                     curdate: Date.now()
                 },
-                // 定义局部过滤器
+                // 局部定义过滤器，传入filters选项
                 filters: {
                     date: (value) => {
                         const today = new Date(value);
 
-                        return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + today.getMinutes();
+                        return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
                     }
                 }
             });
