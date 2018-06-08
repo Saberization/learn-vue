@@ -12,15 +12,28 @@
 <body>
 
     <div id="app">
-        <button @click="send">点击发送ajax请求</button>
-        <button @click="simple">简写axios</button>
-        <!-- 换行 -->
+        <button @click="send">发送ajax请求</button>
+        <button @click="simple">发送 axios.post 请求</button>
+
         <pre></pre>
 
-        结果：<div>{{response}}</div>
+        返回数据：{{response}}
     </div>
 
     <script>
+        /**
+         * http://202.109.164.59/EpointZBService/api/Iphone/GetCode
+         */
+
+        const requestData = JSON.stringify({
+            ValidateData: 'Epoint_WebSerivce_**0601',
+            paras: {
+                CodeName: '界别'
+            }
+        });
+
+        const url = 'http://202.109.164.59/EpointZBService/api/Iphone/GetCode';
+
         new Vue({
             el: '#app',
             data: {
@@ -28,45 +41,33 @@
             },
             methods: {
                 send() {
+
                     const that = this;
 
                     axios({
                         method: 'post',
-                        url: 'http://202.109.164.59/EpointZBService/api/Iphone/GetCode',
-                        data: JSON.stringify({
-                            ValidateData: 'Epoint_WebSerivce_**0601',
-                            paras: {
-                                CodeName: '界别'
-                            }
-                        }),
+                        url: url,
+                        data: requestData,
                         headers: {
                             'Content-Type': 'application/json'
                         }
-                    }).then(function (response) {
-                        that.response = response.data;
-                    }).catch(err => {
+                    }).then(res => {
+                        that.response = res.data;
+                    }).catch((err) => {
                         console.log(err);
                     });
+
                 },
 
                 simple() {
                     const that = this;
 
-                    axios.post('http://202.109.164.59/EpointZBService/api/Iphone/GetCode', JSON.stringify({
-                        ValidateData: 'Epoint_WebSerivce_**0601',
-                        paras: {
-                            CodeName: '界别'
-                        }
-                    }), {
+                    axios.post(url, requestData, {
                         headers: {
                             'Content-Type': 'application/json'
-                        },
-                        // 发送请求前，处理 requestData
-                        transformRequest: [function(data) {
-                            return data;
-                        }]
-                    }).then(response => {
-                        that.response = response.data;
+                        }
+                    }).then(res => {
+                        that.response = res.data;
                     }).catch(err => {
                         console.log(err);
                     });
