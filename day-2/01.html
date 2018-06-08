@@ -5,9 +5,74 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <title>发送ajax请求</title>
+    <script src="../libs/vue.js"></script>
+    <script src="../libs/axios.min.js"></script>
 </head>
 <body>
 
+    <div id="app">
+        <button @click="send">点击发送ajax请求</button>
+        <button @click="simple">简写axios</button>
+        <!-- 换行 -->
+        <pre></pre>
+
+        结果：<div>{{response}}</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                response: ''
+            },
+            methods: {
+                send() {
+                    const that = this;
+
+                    axios({
+                        method: 'post',
+                        url: 'http://202.109.164.59/EpointZBService/api/Iphone/GetCode',
+                        data: JSON.stringify({
+                            ValidateData: 'Epoint_WebSerivce_**0601',
+                            paras: {
+                                CodeName: '界别'
+                            }
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (response) {
+                        that.response = response.data;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+
+                simple() {
+                    const that = this;
+
+                    axios.post('http://202.109.164.59/EpointZBService/api/Iphone/GetCode', JSON.stringify({
+                        ValidateData: 'Epoint_WebSerivce_**0601',
+                        paras: {
+                            CodeName: '界别'
+                        }
+                    }), {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        // 发送请求前，处理 requestData
+                        transformRequest: [function(data) {
+                            return data;
+                        }]
+                    }).then(response => {
+                        that.response = response.data;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
