@@ -5,9 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>发送ajax请求</title>
+    <title>axios</title>
     <script src="../libs/vue.js"></script>
     <script src="../libs/axios.min.js"></script>
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,6 +24,15 @@
         <pre></pre>
 
         返回数据：{{response}}
+
+        <pre></pre>
+
+        Github ID: <input type="text" v-model="uid">
+        <button @click="getUserById(uid)">获取指定 github 账户信息并展示</button>
+
+        <div v-if="hasUid">当前 {{uid}} 下的账户信息：</div>
+        <p v-cloak>{{uidInfor}}</p>
+
     </div>
 
     <script>
@@ -37,11 +52,13 @@
         new Vue({
             el: '#app',
             data: {
-                response: ''
+                response: '',
+                uid: '',
+                hasUid: false,
+                uidInfor: ''
             },
             methods: {
                 send() {
-
                     const that = this;
 
                     axios({
@@ -71,6 +88,20 @@
                     }).catch(err => {
                         console.log(err);
                     });
+                },
+
+                getUserById(uid) {
+                    if (!uid) {
+                        alert('请输入 GitHub ID');
+                        return;
+                    }
+
+                    const that = this;
+
+                    axios.get('https://api.github.com/users/' + uid)
+                        .then(function (response) {
+                            that.uidInfor = response.data;
+                        });
                 }
             }
         });
