@@ -30,3 +30,5 @@ axios.post(url, data, [options])
 ```
 
 axios 本身不支持发送跨域请求，没有响应的API，作者暂时也没计划在 axios 中添加支持发送跨域请求，所以只能使用第三方库。
+
+使用 `vue-resource` 来进行跨域请求。
