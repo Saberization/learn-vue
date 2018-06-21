@@ -160,7 +160,7 @@
 
                     this.$http.jsonp(sendUrl, {
                         params: result,
-                        jsonp: 'cb'
+                        jsonp: 'cb' // 修改 JSONP 参数名叫 cb，默认jsonp的参数名叫 callback
                     })
                     .then(res => {
                         that.responseBaidu = res.body.g;

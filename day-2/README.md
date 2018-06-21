@@ -38,3 +38,27 @@ axios.post(url, data, [options])
 ```
 npm install --save-dev vue-resource
 ```
+
+#### 3.2 基本用法
+
+使用 `this.$http` 发送请求
+
+    this.$http.get(url, [config])
+    this.$http.head(url, [config])
+    this.$http.delete(url, [config])
+    this.$http.jsonp(url, [config])
+    this.$http.post(url, [body], [config])
+    this.$http.put(url, [body], [config])
+    this.$http.patch(url, [body], [config])
+
+注意：JSONP，修改 callback 参数名，传入 `jsonp` 可以去修改
+
+```js
+{
+    jsonp: 'cb'
+}
+```
+
+#### 4. 练习
+
+百度搜索列表
