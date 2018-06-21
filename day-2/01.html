@@ -8,6 +8,7 @@
     <title>axios</title>
     <script src="../libs/vue.js"></script>
     <script src="../libs/axios.min.js"></script>
+    <script src="../libs/vue-resource.min.js"></script>
 
     <style>
         [v-cloak] {
@@ -32,6 +33,13 @@
 
         <div v-if="hasUid">当前 {{uid}} 下的账户信息：</div>
         <p v-cloak>{{uidInfor}}</p>
+
+        <input type="text" placeholder="请输入搜索内容" v-model="keyWord" />
+        <button @click="sendjsonp">发送JSONP请求</button>
+
+        <pre></pre>
+        
+        360搜索返回数据： {{responseData}}
     </div>
 
     <script>
@@ -45,7 +53,6 @@
                 CodeName: '界别'
             }
         });
-
         const url = 'http://202.109.164.59/EpointZBService/api/Iphone/GetCode';
 
         new Vue({
@@ -54,7 +61,9 @@
                 response: '',
                 uid: '',
                 hasUid: false,
-                uidInfor: ''
+                uidInfor: '',
+                keyWord: '',
+                responseData: ''
             },
             methods: {
                 send() {
@@ -100,6 +109,31 @@
                         .then(function (response) {
                             that.uidInfor = response.data;
                         });
+                },
+
+                sendjsonp() {
+                    const url = 'https://sug.so.360.cn/suggest?callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&fields=word';
+                    const sendUrl = url.slice(0, url.indexOf('?'));
+                    const that = this;
+                    let params = url.slice(url.indexOf('?') + 1).split('&');
+                    let result = {};
+
+                    params.forEach(function(e, i) {
+                        const itemArr = e.split('=');
+
+                        result[itemArr[0]] = itemArr[1];
+                    });
+
+                    result.word = this.keyWord;
+
+                    this.$http.jsonp(sendUrl, {
+                        params: result
+                    })
+                    .then(function(response) {
+                        that.responseData = response.body.result;
+                    }, function(err) {
+                        throw new Error(err);
+                    });
                 }
             }
         });
