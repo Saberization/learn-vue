@@ -35,11 +35,16 @@
         <p v-cloak>{{uidInfor}}</p>
 
         <input type="text" placeholder="请输入搜索内容" v-model="keyWord" />
-        <button @click="sendjsonp">发送JSONP请求</button>
+        <button @click="sendjsonp">360搜索</button>
+        <pre></pre>
+        360搜索返回数据： {{responseData}}
 
         <pre></pre>
-        
-        360搜索返回数据： {{responseData}}
+
+        <input type="text" placeholder="请输入搜索内容" v-model="baidusrh">
+        <button @click="sendjsonp2">百度搜索</button>
+        <pre></pre>
+        百度搜索返回数据：{{responseBaidu}}
     </div>
 
     <script>
@@ -63,7 +68,9 @@
                 hasUid: false,
                 uidInfor: '',
                 keyWord: '',
-                responseData: ''
+                responseData: '',
+                baidusrh: '',
+                responseBaidu: ''
             },
             methods: {
                 send() {
@@ -133,6 +140,32 @@
                         that.responseData = response.body.result;
                     }, function(err) {
                         throw new Error(err);
+                    });
+                },
+
+                sendjsonp2() {
+                    const url = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?json=1&p=3&sid=1438_21086_26350_20929&req=2&csor=3';
+                    const sendUrl = url.slice(0, url.indexOf('?'));
+                    const that = this;
+                    let params = url.slice(url.indexOf('?') + 1).split('&');
+                    let result = {};
+
+                    params.forEach(function(e, i) {
+                        const itemArr = e.split('=');
+
+                        result[itemArr[0]] = itemArr[1];
+                    });
+
+                    result.wd = this.baidusrh;
+
+                    this.$http.jsonp(sendUrl, {
+                        params: result,
+                        jsonp: 'cb'
+                    })
+                    .then(res => {
+                        that.responseBaidu = res.body.g;
+                    }, err => {
+                        console.log(err);
                     });
                 }
             }
