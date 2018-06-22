@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +8,7 @@
 	<title>搜索列表练习</title>
 	<script src="../libs/vue.js"></script>
 	<script src="../libs/vue-resource.min.js"></script>
-	
+
 	<style>
 		* {
 			margin: 0;
@@ -37,7 +38,7 @@
 		.result-list {
 			width: 540px;
 			margin: 0 auto;
-			box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1);
+			box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
 			background: #fff;
 			text-align: left;
 		}
@@ -56,21 +57,29 @@
 		}
 	</style>
 </head>
+
 <body>
 	<div id="app">
-		<input type="text" class="srh-input" placeholder="请输入搜索内容" v-model="keyword" @input="srhInput" />
-		<ul class="result-list" v-for="(v, i) in list" v-show="isShow" @keypress>
-			<li class="result-list-item">{{v}}</li>
+		<input type="text" class="srh-input" placeholder="请输入搜索内容" v-model="keyword" @input="srhInput" @keydown.down.up="keydown" />
+		<ul class="result-list" v-show="isShow">
+			<li :class="[cls, v.cls]" v-for="(v, i) in list" :data-index="i">{{v.title}}</li>
 		</ul>
 	</div>
 
 	<script>
+		Vue.config.keyCodes = {
+			down: 40,
+			up: 38
+		};
+
 		new Vue({
 			el: '#app',
 			data: {
 				isShow: false,
 				list: [],
-				keyword: ''
+				keyword: '',
+				cls: 'result-list-item',
+				count: 0
 			},
 			methods: {
 				srhInput() {
@@ -87,23 +96,57 @@
 					this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
 						params: params,
 						jsonp: 'cb'
-					})
-					.then(res => {
+					}).then(res => {
 						this.list = [];
 
 						let list = this.list;
-						
-						res.body.g.forEach(v => {
-							list.push(v.q);
-						});
+						const g = res.body.g;
+
+						if (g && Array.isArray(g)) {
+							g.forEach(v => {
+								list.push({
+									title: v.q,
+									cls: ''
+								});
+							});
+						}
 
 						this.isShow = true;
+
 					}, err => {
 						throw new Error(err);
+					});
+				},
+
+				keydown() {
+					const keyCode = event.keyCode,
+						list = this.list,
+						that = this;
+
+					// 按下按钮
+					if (keyCode === 40) {
+						this.count = this.count >= list.length ? list.length : this.count + 1;
+					}
+					// 按上按钮
+					else if (keyCode === 38) {
+						this.count = this.count <= 0 ? 0 : this.count - 1;
+					}
+
+					const index = this.count - 1;
+
+					this.list.forEach((v, i) => {
+						if (i === index) {
+							that.keyword = v.title;
+							v.cls = 'selected';
+						}
+						else {
+							v.cls = '';
+						}
 					});
 				}
 			}
 		});
 	</script>
 </body>
+
 </html>
