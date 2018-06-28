@@ -59,6 +59,6 @@ npm install --save-dev vue-resource
 }
 ```
 
-#### 4. 练习
+## 二、Vue生命周期
 
-百度搜索列表练习
+Vue实例从创建到销毁的过程，称为生命周期，共有八个阶段。

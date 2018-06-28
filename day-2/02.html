@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<title>搜索列表练习</title>
+	<title>searchlist</title>
 	<script src="../libs/vue.js"></script>
 	<script src="../libs/vue-resource.min.js"></script>
 
@@ -60,9 +60,9 @@
 
 <body>
 	<div id="app">
-		<input type="text" class="srh-input" placeholder="请输入搜索内容" v-model="keyword" @input="srhInput" @keydown.down.up="keydown" />
+		<input type="text" class="srh-input" placeholder="请输入搜索内容" v-model="keyword" @input="srhInput" @keydown.down.up.enter="keydown" />
 		<ul class="result-list" v-show="isShow">
-			<li :class="[cls, v.cls]" v-for="(v, i) in list" :data-index="i">{{v.title}}</li>
+			<li :class="[cls, v.cls]" v-for="(v, i) in list" :data-index="i" @click="openPage($event.target.innerText)">{{v.title}}</li>
 		</ul>
 	</div>
 
@@ -143,6 +143,14 @@
 							v.cls = '';
 						}
 					});
+					
+					if (keyCode === 13) {
+					    this.openPage(event.target.value);
+					}
+				},
+				
+				openPage(keyword) {
+				    window.open('https://www.baidu.com/s?wd=' + keyword);
 				}
 			}
 		});
