@@ -25,23 +25,70 @@
 
          <pre></pre>
          <button @click="changeMsg">修改msg</button>
+
+         <!-- 
+            2. 计算属性与方法对比
+          -->
+
+        <h2>{{num1}}</h2>
+        <h2>{{num2}}</h2>
+        <h2>{{getNum2()}}</h2>
+
+        <button @click="pool">pool</button>
+
+        <h3>{{num3}}</h3>
+        <button @click="changeNum3">修改num3</button>
     </div>
 
     <script>
-        new Vue({
+        var vm = new Vue({
             el: '#app',
             data: {
-                msg: 'I love saber'
+                msg: 'I love saber',
+                num1: 5
             },
-            computed: {
+            computed: {  // 计算属性
                 msg2: () => 'I always love saber',
-                reverseMsg: function() {
+                reverseMsg: function() { // 可以包含逻辑处理，依赖msg
                     return this.msg.split(' ').reverse().join(' ')
+                },
+                num2() {
+                    // 只要依赖 num1 没有改变，每次访问则只会输出第一次执行的console，接下来不管怎么访问，都不会在输出console，都是访问的缓存
+                    // 只有当依赖 num1 改变时，才会再次触发
+                    console.log(new Date());
+                    return this.num1 - 1;
+                },
+                num3: {
+                    get() {
+                        console.log(new Date());
+                        return this.num1 - 2;
+                    },
+
+                    // 赋的66会当参数传进来
+                    set(val) {
+                        this.num1 = this.num1 - val;
+                    }
                 }
             },
             methods: {
                 changeMsg() {
                     this.msg = 'saber love my';
+                },
+
+                getNum2() {
+                    // 与计算属性不同，每次访问都会输出console
+                    console.log(new Date());
+                    return this.num1 - 1;
+                },
+
+                pool() {
+                    setInterval(function() {
+                        console.log(vm.getNum2());
+                    }, 1000);
+                },
+
+                changeNum3() {
+                    this.num3 = 66;
                 }
             }
         });
