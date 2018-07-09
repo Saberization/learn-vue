@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 实例和属性的方法</title>
+    <script src="../libs/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+
+        <h2 ref="saber">爱saber</h2>
+        <h2 ref="rin">爱rin</h2>
+
+        <h1 ref="lovesaber">最爱：{{name}}</h1>
+    </div>
+
+    <script>
+        // var vm = new Vue({
+        //     // el: '#app',
+        //     data: {
+        //         msg: 'I love saber'
+        //     },
+        //     name: 'saber',
+        //     age: '23'
+        // });
+
+        /**
+         * 属性
+         */
+        // vm.属性名 获取 data 中的属性
+        // console.log(vm.msg);
+
+        // vm.$el 获取 vue 实例关联的元素
+        // console.log(vm.$el);
+        // vm.$el.style.color = '#f00';
+
+        // vm.$data 获取数据
+        // console.log(vm.$data);
+        // console.log(vm.$data.msg);
+
+        // vm.$options 用来获取自定义实例属性
+        // console.log(vm.$options.name);
+        // console.log(vm.$options.age);
+
+        // vm.$refs 获取所有添加 ref 属性的元素
+        // console.log(vm.$refs.saber);
+        // console.log(vm.$refs.rin);
+
+        /**
+         * 方法
+         */
+
+        // vm.$mount() 手动挂载vue实例
+        // vm.$mount('#app');
+
+        var vm = new Vue({
+            data: {
+                msg: 'I love saber',
+                name: 'saber'
+            },
+            name: 'saber',
+            age: '23'
+        }).$mount('#app');
+
+        // vm.$destroy 销毁实例
+        // vm.$destroy();
+
+        // vm.$nextTick(callback)
+        // 修改数据
+        vm.name = 'Rin';
+        // DOM还未更新完，Vue更新dom是异步进行的，不是数据一更新，dom就更新了。
+        // Vue 更新 dom 是异步的过程，所以当给 name 修改值为 rin 的时候，更新dom任务推入异步队列(要等同步操作执行完毕后，才会来响应异步队列中的已完成任务)，然后直接往下执行 vm.$refs.lovesaber.innerText，所以最后获取的值还是未更新前的
+        console.log(vm.$refs.lovesaber.innerText); // 最爱saber
+        // 解决方法就是 vm.$nextTick(callback) ，这个方法是 vue 提供的，确保这个方法里的callback 调用是在 dom更新完毕后(异步任务完成后) 触发。
+        vm.$nextTick(function() {
+            console.log(vm.$refs.lovesaber.innerText); // 最爱Rin
+        });
+    </script>
+</body>
+
+</html>

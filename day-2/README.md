@@ -95,3 +95,22 @@ Vue实例从创建到销毁的过程，称为生命周期(也叫做钩子)，共
 计算属性由两部分组成：get和set，分别用来获取计算属性和设置计算属性
 
 默认只有get，如果需要set，要自己添加
+
+## 四、vue实例的属性和方法
+
+### 1. 属性
+
+    vm.$el： vm.$el 获取 vue 实例关联的元素
+    vm.$data：vm.$data 获取数据
+    vm.$options：vm.$options 获取实例中的自定义属性
+    vm.$refs：vm.$refs 获取所有带有 ref 属性的 dom 元素
+
+### 2. 方法
+
+    vm.$mount()：手动挂载vue实例
+    vm.$destroy()：销毁 vue 实例
+    vm.$nextTick(callback)：由于 Vue 更新 dom 是异步的过程，这个方法是确保 dom 更新完毕后，触发 callback
+
+    vm.$set()
+    vm.$delete()
+    vm.$watch()
