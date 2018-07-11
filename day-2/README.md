@@ -111,6 +111,6 @@ Vue实例从创建到销毁的过程，称为生命周期(也叫做钩子)，共
     vm.$destroy()：销毁 vue 实例 详见05.html
     vm.$nextTick(callback)：由于 Vue 更新 dom 是异步的过程，这个方法是确保 dom 更新完毕后，触发 callback 详见05.html
 
-    vm.$set()
-    vm.$delete()
-    vm.$watch()
+    vm.$set(object, key, value)
+    vm.$delete(object, key)
+    vm.$watch(data, callback[,options])
