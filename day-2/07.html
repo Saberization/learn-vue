@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>监视数据的变化：$watch</title>
+    <script src="../libs/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="name">
+        
+        {{name}}
+    </div>
+
+    <script>
+        var vm = new Vue({
+            data: {
+                name: 'saber'
+            }
+        }).$mount('#app');
+
+        // 监听 vm.name 的变化
+        vm.$watch('name', function(newVal, oldVal) {
+            // newVal: 修改过后的值
+            console.log(newVal);
+            // oldVal: 修改前的值
+            console.log(oldVal);
+        });
+    </script>
+</body>
+</html>

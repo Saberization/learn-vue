@@ -18,7 +18,7 @@
     </div>
 
     <script>
-        new Vue({
+        var vm = new Vue({
             data: {
                 user: {
                     name: 'saber',
@@ -44,6 +44,8 @@
                 }
             }
         }).$mount('#app');
+
+        vm.set(this.user, 'age', '23'); // this.$set 是 vm.set 的别名
     </script>
 </body>
 </html>
