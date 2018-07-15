@@ -10,17 +10,47 @@
 <body>
     <div id="app">
         <input type="text" v-model="name">
+        <input type="text" v-model="age">
+        <input type="text" v-model="user.name">
         
         {{name}}
+
+        <pre></pre>
+
+        {{age}}
+
+        <pre></pre>
+
+        {{user.name}}
     </div>
 
     <script>
         var vm = new Vue({
             data: {
-                name: 'saber'
+                name: 'saber',
+                age: '22',
+                user: {
+                    name: 'Rin',
+                    age: '22'
+                }
+            },
+            watch: { // 方式二：作为选项使用
+                age: function (newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                },
+
+                // 监听对象必须采用深度监听，否则会没有反应
+                user: {
+                    handler: function (newVal, oldVal) {
+                        // 这边 newVal 与 oldVal 永远输出都是一样的，因为 user 是个对象，修改了属性 newVal.name 同事 oldVal.name 指向的内存(newVal) 也是一样的，所以值是一样的，基础(对象指向)
+                        console.log(newVal.name, oldVal.name);
+                    },
+                    deep: true // 深度监视开启，当对象中的属性发生变化时也会监视
+                }
             }
         }).$mount('#app');
 
+        // 使用方式1：使用 vue 实例提供的 $watch 方法
         // 监听 vm.name 的变化
         vm.$watch('name', function(newVal, oldVal) {
             // newVal: 修改过后的值
@@ -28,6 +58,11 @@
             // oldVal: 修改前的值
             console.log(oldVal);
         });
+
+        // 若要深度解析，直接在最后面加个 true 就完事了。
+        vm.$watch('user', function (val) {
+            console.log(val);
+        }, true);
     </script>
 </body>
 </html>
