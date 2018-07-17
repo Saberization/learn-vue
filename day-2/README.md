@@ -113,4 +113,12 @@ Vue实例从创建到销毁的过程，称为生命周期(也叫做钩子)，共
 
     vm.$set(object, key, value)  // this.$set 有对应的全局方法 vm.set
     vm.$delete(object, key)  // this.$delete 有对应的全局方法 vm.delete
-    vm.$watch(data, callback[,options])  // this.$watch 没有对应的全局方法，但是可以作为选项 watch 传入
+    vm.$watch(data, callback[,options])  // this.$watch 没有对应的全局方法，但是可以作为选项 watch 
+    
+## 五、自定义指令
+
+分类：全局指令、局部指令
+
+### 1.自定义全局指令
+
+使用全局方法 `Vue.directive(指令id, 定义对象)`
