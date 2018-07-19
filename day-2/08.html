@@ -9,9 +9,14 @@
 </head>
 <body>
     <div id="app">
-        <h3 v-hello>{{msg}}</h3>
+        <!-- <h3 v-hello>{{msg}}</h3> -->
 
         <button @click="changeMsg">修改msg</button>
+
+        <h4 v-world>{{msg}}</h4>
+        <!-- 只要是 vue 指令内的，都是变量，所以这里的 color 是变量名 -->
+        <!-- 注意 ：后面的是传递的参数， . 符号跟的叫修饰符，参考 @click.stop stop就是修饰符 -->
+        <p v-world:lovesaber.heihei.haha="color">Rin</p>
     </div>
 
     <script>
@@ -37,11 +42,29 @@
             unbind() {
                 alert('解绑事件时触发');
             }
-        })
+        });
+
+        Vue.directive('world', {
+            /**
+             * el {HTMLElement} 指令所绑定的元素 dom 对象
+             */
+            bind(el, property) {
+                el.style.color = property.value;
+                
+                console.log(property);
+                console.log(property.name); // 指令名 不包括 v- 前缀  world
+                console.log(property.value); // 指令绑定的值
+                console.log(property.expression); // 指令绑定的值的变量名
+                console.log(property.rawName); // 指令全名，带 v-前缀 v-world
+                console.log(property.arg); // 获取为指令传的参数，即 v-world: :后面的值 lovesaber
+                console.log(property.modifiers); // 获取指令的修饰符 {haha: true, heihei: true}
+            }
+        });
 
         new Vue({
             data: {
-                msg: 'Saber'
+                msg: 'Saber',
+                color: '#f00'
             },
             methods: {
                 changeMsg() {
