@@ -15,6 +15,10 @@
 
         <h4 v-world>{{msg}}</h4>
         <h5 v-red>{{msg}}</h5>
+        <h6 v-saber>{{msg}}</h6>
+        <h3 v-rin>{{msg}}</h3>
+
+        <input type="text" placeholder="自动获得焦点" v-focus>
         <!-- 只要是 vue 指令内的，都是变量，所以这里的 color 是变量名 -->
         <!-- 注意 ：后面的是传递的参数， . 符号跟的叫修饰符，参考 @click.stop stop就是修饰符 -->
         <p v-world:lovesaber.heihei.haha="color">Rin</p>
@@ -69,6 +73,12 @@
             }
         });
 
+        // 传入一个简单的函数，bind与update时被调用
+        Vue.directive('saber', function(el, property) {
+            console.log(el);
+            console.log(property);
+        });
+
         new Vue({
             data: {
                 msg: 'Saber',
@@ -77,6 +87,17 @@
             methods: {
                 changeMsg() {
                     this.msg = 'Rin'
+                }
+            },
+            directives: { // 自定义局部指令
+                rin(el) {
+                    el.style.color = "blue";
+                },
+
+                focus: {
+                    inserted(el) {
+                        el.focus();
+                    }
                 }
             }
         }).$mount('#app');
