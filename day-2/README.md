@@ -122,3 +122,25 @@ Vue实例从创建到销毁的过程，称为生命周期(也叫做钩子)，共
 ### 1.自定义全局指令
 
 使用全局方法 `Vue.directive(指令id, 定义对象)`
+
+### 2.局部指令
+
+在 Vue 实例化的时候传入 `directives`
+
+```js
+new Vue({
+    directives: {
+        saber() {
+
+        },
+        rin {
+            bind() {
+
+            },
+            inserted() {
+
+            }
+        }
+    }
+}).mount('#app');
+```
