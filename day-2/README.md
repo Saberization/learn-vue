@@ -144,3 +144,10 @@ new Vue({
     }
 }).mount('#app');
 ```
+
+### 3. 练习
+
+拖动页面元素
+
+onmouseover onmouseout
+onmousedown onmouseup

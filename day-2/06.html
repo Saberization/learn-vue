@@ -18,6 +18,7 @@
     </div>
 
     <script>
+        // 注意，只有给对象添加删除属性是需要用到 $set $delete 的，如果直接 this.user.xx 这样去添加，vue是不会做监视的
         var vm = new Vue({
             data: {
                 user: {
@@ -45,7 +46,7 @@
             }
         }).$mount('#app');
 
-        vm.set(this.user, 'age', '23'); // this.$set 是 vm.set 的别名
+        Vue.set(vm.user, 'age', '23'); // this.$set 是 vm.set 的别名
     </script>
 </body>
 </html>
