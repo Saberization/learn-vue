@@ -151,3 +151,20 @@ new Vue({
 
 onmouseover onmouseout
 onmousedown onmouseup
+
+## 六、过度(动画)
+
+### 1.简介
+
+Vue 在插入、更新或移除 DOM 时，提供多种不同方式的应用过渡效果
+本质上还是使用 CSS3 动画：transition、animation
+
+### 2.基本用法
+
+使用 transition 组件实现，将要执行动画的元素包含在该组件内
+
+```
+<transition>
+    <!-- 要运动的元素 -->
+</transition>
+```
