@@ -13,33 +13,8 @@
         .test {
             width: 300px;
             height: 300px;
-        }
-
-        /* 过渡效果 */
-        .fade-enter-active,
-        .fade-leave-active {
-            transition: all 2s ease;
-        }
-
-        /* 过渡效果 */
-        .fade-enter-active {
-            width: 300px;
-            height: 300px;
-            opacity: 1;
-        }
-        
-        /* 过渡效果 */
-        .fade-leave-active {
-            width: 0;
-            height: 0;
-            opacity: 0;
-        }
-
-        /* 初始状态 需要放在 fade-enter-active 后，否则无效 */
-        .fade-enter {
-            width: 0;
-            height: 0;
-            opacity: 0;
+            background: #f00;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -47,14 +22,7 @@
 <body>
     <div id="app">
         <button @click="show=!show">toggle</button>
-        <transition name="fade"
-            @before-enter="beforeEnter"
-            @enter="enter"
-            @after-enter="afterEnter"
-            @before-leave="beforeLeave"
-            @leave="leave"
-            @after-leave="afterLeave"
-        >
+        <transition name="saber" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
             <div v-if="show" class="test"></div>
         </transition>
     </div>
@@ -63,33 +31,6 @@
         new Vue({
             data: {
                 show: false
-            },
-            methods: {
-                beforeEnter(el) {
-                    el.style.background = "#f00";
-                    alert('动画进入之前');
-                },
-
-                enter() {
-                    alert('动画进入');
-                },
-
-                afterEnter() {
-                    alert('动画进入之后');
-                },
-
-                beforeLeave(el) {
-                    el.style.background = 'teal';
-                    alert('动画离开之前');
-                },
-
-                leave() {
-                    alert('动画离开');
-                },
-
-                afterLeave() {
-                    alert('动画离开之后');
-                }
             }
         }).$mount('#app');
     </script>

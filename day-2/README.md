@@ -177,4 +177,27 @@ Vue 在插入、更新或移除 DOM 时，提供多种不同方式的应用过�
 
  常用的钩子函数：before-enter、enter、after-enter、before-leave、leave、after-leave
 
-### 4.结合 [animate.css](https://github.com/daneden/animate.css) 来结合使用
+ 用法：
+
+ ```
+<transition name="fade" 
+    @before-enter="beforeEnter"
+    @enter="enter"
+    @after-enter="afterEnter"
+    @before-leave="beforeLeave"
+    @leave="leave"
+    @after-leave="afterLeave"
+>
+    <!-- 要运动的元素 -->
+</transition>
+ ```
+
+### 4.结合第三方库 [animate.css](https://github.com/daneden/animate.css) 一起来使用
+
+```
+<transition name="saber" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+    <div v-if="show" class="test"></div>
+</transition>
+```
+
+这里我们结合第三方库，一般只需要用到 `enter-active-class` 和 `leave-active-class`
