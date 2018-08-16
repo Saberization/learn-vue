@@ -5,58 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>动画</title>
+    <title>动画 transition</title>
     <script src="../libs/vue.js"></script>
 
     <style>
-        /* 注意，加样式的时候，vue默认是在 vm.$el 下去取的，所以不要加 vm.$el 选择器，否则会取不到 */
-
-        /* 最后动画结束固定最后展示的宽度高度 */
-        /* 这里不再加 #app 选择器，因为 Vue 默认会在 #app 下取元素，加了会取不到样式与dom，所以这里省略 #app 直接写 p */
-        p {
-            width: 200px;
-            height: 200px;
+        .test {
+            width: 300px;
+            height: 300px;
             background: #f00;
         }
 
-        /* 整个过程 enter -> enter-active -> leave-active */
-        
-        /* 进入与离开过程的运动效果 */
         .fade-enter-active,
         .fade-leave-active {
             transition: all 2s ease;
         }
 
-        /* 进入的运动 */
         .fade-enter-active {
+            width: 300px;
+            height: 300px;
             opacity: 1;
-            width: 200px;
-            height: 200px;
         }
 
-        /* 进入运动后的初始化效果 */
-        /* enter 一定要加，否则没有动画效果，即不会执行 enter-active */
+        .fade-leave-active {
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+
         .fade-enter {
             width: 0;
             height: 0;
             opacity: 0;
-        }
-        
-        /* 离开的运动效果 */
-        .fade-leave-active {
-            opacity: 0;
-            width: 0;
-            height: 0;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <button @click="show=!show">点我</button>
-
+        <button @click="show=!show">toggle</button>
         <transition name="fade">
-            <p v-if="show"></p>
+            <div v-if="show" class="test"></div>
         </transition>
     </div>
 
