@@ -168,3 +168,13 @@ Vue 在插入、更新或移除 DOM 时，提供多种不同方式的应用过�
     <!-- 要运动的元素 -->
 </transition>
 ```
+
+过渡的 css 类名：6个
+
+### 3.钩子函数
+
+ 8个
+
+ 常用的钩子函数：before-enter、enter、after-enter、before-leave、leave、after-leave
+
+### 4.结合 [animate.css](https://github.com/daneden/animate.css) 来结合使用

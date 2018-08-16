@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>动画 transition</title>
+    <link rel="stylesheet" href="../libs/animate.css">
     <script src="../libs/vue.js"></script>
 
     <style>
         .test {
             width: 300px;
             height: 300px;
-            background: #f00;
         }
 
         /* 过渡效果 */
@@ -47,7 +47,14 @@
 <body>
     <div id="app">
         <button @click="show=!show">toggle</button>
-        <transition name="fade">
+        <transition name="fade"
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+            @before-leave="beforeLeave"
+            @leave="leave"
+            @after-leave="afterLeave"
+        >
             <div v-if="show" class="test"></div>
         </transition>
     </div>
@@ -56,6 +63,33 @@
         new Vue({
             data: {
                 show: false
+            },
+            methods: {
+                beforeEnter(el) {
+                    el.style.background = "#f00";
+                    alert('动画进入之前');
+                },
+
+                enter() {
+                    alert('动画进入');
+                },
+
+                afterEnter() {
+                    alert('动画进入之后');
+                },
+
+                beforeLeave(el) {
+                    el.style.background = 'teal';
+                    alert('动画离开之前');
+                },
+
+                leave() {
+                    alert('动画离开');
+                },
+
+                afterLeave() {
+                    alert('动画离开之后');
+                }
             }
         }).$mount('#app');
     </script>
