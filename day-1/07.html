@@ -35,6 +35,8 @@
         <!-- 第三种方式：传入 json，当传入的为json的时候，可以直接使用定义的 classname，而不需要在 vue.data 中定义变量 -->
         <!-- 键为 css 中定义的 classname、值为 boolean，true为使用、false为不使用 -->
         <p :class="{text: true, cc: false}">Saber</p>
+        <p :class="{text: active}">Saber</p>
+        <p :class="{text: !active}">Saber</p>
 
         <!-- 第四种方式：在 vue.data 当中定义变量json引入 -->
         <p :class="cls">Aimer</p>
@@ -54,6 +56,7 @@
                     text: true,
                     cc: true
                 },
+                active: true,
                 stylus: {
                     width: '100px',
                     height: '100px',

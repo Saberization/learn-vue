@@ -39,7 +39,8 @@
 
             <ul>
                 <!-- 当数据为 Array 类型的时候，v-for 只有 value 与 index，只有当数据类型为 Object 键值对对象的时候，v-for 才有 value key index -->
-                <li v-for="(v, i) in arr5" :key="i">序号：{{i + 1}} 姓名：{{v.name}} 年龄：{{v.age}}</li>
+                <!-- 绑定自定义属性一定要加 v-bind 即 : 这样 vue 才会做特殊处理，否则编译会报错 -->
+                <li v-for="(v, i) in arr5" :key="i" :data-index="v.name">序号：{{i + 1}} 姓名：{{v.name}} 年龄：{{v.age}}</li>
             </ul>
         </div>
 
