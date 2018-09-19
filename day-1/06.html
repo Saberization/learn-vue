@@ -40,6 +40,9 @@
             el: '#app',
             methods: {
                 button() {
+                    event.currentTarget; // event.currentTarget 指向的是事件绑定的元素
+                    event.target; // event.target 指向的是当前点击的元素
+                    
                     console.log('button');
                 },
                 p() {
