@@ -14,7 +14,14 @@
             width: 300px;
             height: 300px;
             background: #f00;
-            margin: 0 auto;
+            margin: 10px auto;
+        }
+
+        .group-item {
+            width: 100px;
+            height: 100px;
+            background: #f00;
+            margin: 10px auto;
         }
     </style>
 </head>
@@ -22,15 +29,37 @@
 <body>
     <div id="app">
         <button @click="show=!show">toggle</button>
+        <input type="text" v-model="name">
         <transition name="saber" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
             <div v-if="show" class="test"></div>
         </transition>
+
+        <!-- 多元素运动必须必须给每个元素绑定唯一的 key，否则会报错 -->
+        <transition-group name="tohsaka" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+            <p v-if="flag" class="group-item" v-for="(v, i) in arr2" :key="i">{{v}}</p>
+        </transition-group>
     </div>
 
     <script>
         new Vue({
             data: {
-                show: false
+                show: false,
+                flag: true,
+                arr: ['Tohsaka', 'Saber', 'Eriri', 'Aimer', 'Egoist'],
+                name: ''
+            },
+            computed: {
+                arr2() {
+                    if (this.name !== '') {
+                        const that = this;
+
+                        return this.arr.filter(e => {
+                            return e.indexOf(that.name) !== -1;
+                        });
+                    }
+
+                    return this.arr;
+                }
             }
         }).$mount('#app');
     </script>

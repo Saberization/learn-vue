@@ -201,3 +201,12 @@ Vue 在插入、更新或移除 DOM 时，提供多种不同方式的应用过�
 ```
 
 这里我们结合第三方库，一般只需要用到 `enter-active-class` 和 `leave-active-class`
+
+### 5.多元素动画
+
+`transition` 只能用于单元素动画(多元素只有第一个元素有动画效果)，`transition-group` 用于多元素动画
+
+```
+<transition-group>
+</transition-group>
+```
