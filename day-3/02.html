@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>组建的分类</title>
+</head>
+<body>
+    <div id="app">
+        <my-saber></my-saber>
+        <my-tohsaka></my-tohsaka>
+    </div>
+
+    <script src="../libs/vue.js"></script>
+    <script>
+        /**
+         * 全局组件，可以在所有的 Vue 实例中使用
+         */ 
+        Vue.component('my-saber', {
+            template: '<h1>{{name}}</h1>',
+            // 注意 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：(https://cn.vuejs.org/v2/guide/components.html#data-%E5%BF%85%E9%A1%BB%E6%98%AF%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0)
+            // 所以组件存储数据时，必须是函数形式，函数返回一个对象
+            data() {
+                return {
+                    name: 'saber'
+                }
+            }
+        });
+
+        /**
+         * 局部组件，只能在当前 Vue 实例中使用
+         */ 
+        let vm = new Vue({
+            data: {
+                name: 'tohsaka'
+            },
+            // 局部组件
+            components: {
+                'my-tohsaka': {
+                    template: '<h2>{{name}}</h2>',
+                    // 注意 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝(https://cn.vuejs.org/v2/guide/components.html#data-%E5%BF%85%E9%A1%BB%E6%98%AF%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0)
+                    // this 指向的是当前 my-tohsaka 实例(是单独的一份)，而不是 vm 实例，所以 vm 无法被访问。
+                    // 所以组件存储数据时，必须是函数形式，函数返回一个对象
+                    data() {
+                        return {
+                            name: 'tohsaka'
+                        }
+                    }
+                }
+            }
+        }).$mount('#app');
+    </script>
+</body>
+</html>
