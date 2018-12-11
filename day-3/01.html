@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>定义组件的两种方式</title>
+</head>
+<body>
+    <div id="app">
+        <tohsaka></tohsaka>
+        <my-saber></my-saber>
+    </div>
+
+    <script src="../libs/vue.js"></script>
+    <script>
+        /**
+         * 方式一：先创建组件构造器，在创建组件
+         */ 
+
+        // 1.使用 Vue.extend 创建一个组件构造器。
+        let myComponent = Vue.extend({
+            template: '<h3>{{name}}</h3>',
+            data() {
+                return {
+                    name: 'Tohsaka Rin'
+                }
+            }
+        });
+        
+        // 2.使用 Vue.compoent(组件名称, 组件构造器) 根据组件构造器来创建组件
+        Vue.component('tohsaka', myComponent);
+
+        /**
+         * 方式二：直接创建组件
+         */ 
+        // 使用 Vue.component(组件名, { 配置项 }) 直接创建组件
+        Vue.component('my-saber', {
+            template: '<h2>{{name}}</h2>',
+            data() {
+                return {
+                    name: 'saber'
+                }
+            }
+        });
+
+        // 这里的 vm 也是一个组件，称之为根组件 Root
+        const vm = new Vue({
+            data: {
+                name: 'Vue'
+            }
+        }).$mount('#app');
+    </script>
+</body>
+</html>
