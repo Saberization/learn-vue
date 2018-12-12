@@ -21,3 +21,9 @@
 将组件的内容放到模板 `<template></template>` 标签中
 
 `<template></template>` 标签中只能有，并且只能有一个根元素
+
+### 5. 动态组件
+
+`<component :is="componentID"></component>` 组件，多个组件使用同一个挂载点，然后动态的在它们之间切换显示，__每次都会重新渲染创建组件__。 [component](https://cn.vuejs.org/v2/api/#component)
+
+`<keep-alive></keep-alive>` 组件，用来保存当前非活动组件，__可以保留状态，避免重新渲染__。

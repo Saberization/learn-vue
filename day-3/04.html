@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>动态组件</title>
+    <script src="../libs/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="flag='my-saber'">显示 my-saber 组件</button>
+        <button @click="flag='my-rin'">显示 my-rin 组件</button>
+
+        <!-- 使用 keep-alive 组件，用来保存现有的非活动组件，可以保留状态，避免重新渲染 -->
+        <keep-alive>
+            <component :is="flag"></component>
+        </keep-alive>
+
+        <!-- 如果不使用 keep-alive 组件去保留现有组件的状态话，那么每次组件都会重新渲染创建 -->
+        <component :is="flag"></component>
+    </div>
+
+    <script>
+        new Vue({
+            data: {
+                flag: 'my-saber'
+            },
+            components: {
+                'my-saber': {
+                    template: '<h3>我是 my-saber 组件, {{ x }}</h3>',
+                    data() {
+                        return {
+                            x: Math.random()
+                        }
+                    }
+                },
+                'my-rin': {
+                    template: '<h3>我是 my-rin 组件, {{ y }}</h3>',
+                    data() {
+                        return {
+                            y: Math.random()
+                        }
+                    }
+                }
+            }
+        }).$mount('#app');
+    </script>
+</body>
+</html>
