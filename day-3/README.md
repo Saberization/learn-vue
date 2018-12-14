@@ -27,3 +27,8 @@
 `<component :is="componentID"></component>` 组件，多个组件使用同一个挂载点，然后动态的在它们之间切换显示，__每次都会重新渲染创建组件__。 [component](https://cn.vuejs.org/v2/api/#component)
 
 `<keep-alive></keep-alive>` 组件，用来保存当前非活动组件，__可以保留状态，避免重新渲染__。
+
+## 二、 组件间数据传递
+
+### 1. 父子组件
+在一个组件内部定义另一个组件，称为父子组件
