@@ -5,17 +5,64 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="format-detection" content="telephone=no" />
-    <title>组件传值</title>
+    <title>父子组件及组件间数据传递</title>
     <script src="../libs/vue.js"></script>
 </head>
 <body>
     <div id="app">
+        <!-- 错误，没有这种写法，子组件也不是那么用，而是要到对应父组件的 template 中使用 -->
+        <!-- <my-saber>
+            <my-rin></my-rin>
+        </my-saber> -->
 
+        <my-saber></my-saber>
+
+        <!-- 无效，只能在 my-saber 组件里用 -->
+        <!-- <my-rin></my-rin> -->
     </div>
 
-    <script>
-        new Vue({
+    <template id="tpl-saber">
+        <div>
+            <h1>我是saber父组件</h1>
+            <h2>访问自己的属性：{{msg}}, {{name}}, {{user}}</h2>
+            <!-- 这里使用 my-saber 组件的子组件 my-rin -->
+            <!-- 在父组件里采用 v-bind 绑定给子组件，在子组件里采用 props 选项来接收父组件传递的数据 -->
+            <my-rin :message="msg" :name="name" :user="user"></my-rin>
+        </div>
+    </template>
 
+    <template id="tpl-rin">
+        <div>
+            <h4>我是rin组件，my-saber的子组件</h4>
+            <h5>我是父组件传递来的数据：{{message}}, {{name}}, {{user}}</h5>
+        </div>
+    </template>
+
+    <script>
+        // 根组件 Root
+        new Vue({
+            components: {
+                // Root 的子组件
+                'my-saber': {
+                    data() {
+                        return {
+                            msg: '一罐寡言',
+                            name: 'saber',
+                            age: '18',
+                            user: {id: 1, username: 'altria'}
+                        }
+                    },
+                    template: '#tpl-saber',
+                    // 定义 my-saber 的子组件 
+                    components: {
+                        'my-rin': {
+                            template: '#tpl-rin',
+                            // 子组件里采用 props 选项，来接收父组件传递来的数据
+                            props: ['message', 'name', 'user']
+                        }
+                    }
+                }
+            }
         }).$mount('#app');
     </script>
 </body>
