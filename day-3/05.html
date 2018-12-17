@@ -24,17 +24,17 @@
     <template id="tpl-saber">
         <div>
             <h1>我是saber父组件</h1>
-            <h2>访问自己的属性：{{msg}}, {{name}}, {{user}}</h2>
+            <h2>访问自己的属性：{{msg}}, {{name}}, {{user}}, {{age}}</h2>
             <!-- 这里使用 my-saber 组件的子组件 my-rin -->
             <!-- 在父组件里采用 v-bind 绑定给子组件，在子组件里采用 props 选项来接收父组件传递的数据 -->
-            <my-rin :message="msg" :name="name" :user="user"></my-rin>
+            <my-rin :message="msg" :name="name" :user="user" :age="age"></my-rin>
         </div>
     </template>
 
     <template id="tpl-rin">
         <div>
             <h4>我是rin组件，my-saber的子组件</h4>
-            <h5>我是父组件传递来的数据：{{message}}, {{name}}, {{user}}</h5>
+            <h5>我是父组件传递来的数据：{{message}}, {{name}}, {{age}}, {{userInfo}}, {{arr}}</h5>
         </div>
     </template>
 
@@ -48,7 +48,7 @@
                         return {
                             msg: '一罐寡言',
                             name: 'saber',
-                            age: '18',
+                            age: 0,
                             user: {id: 1, username: 'altria'}
                         }
                     },
@@ -58,8 +58,38 @@
                         'my-rin': {
                             template: '#tpl-rin',
                             // 子组件里采用 props 选项，来接收父组件传递来的数据
-                            // 目前是一个简单的字符串数据，但是 props 有很多扩展
-                            props: ['message', 'name', 'user']
+                            // props: ['message', 'name', 'user'], // 简单的字符串数组
+                            props: { // 也可以是对象，允许配置高级设置，如类型判断、数据校验、设置默认值
+                                message: String,
+                                name: {
+                                    type: String,
+                                    required: true // 必须要传递的项
+                                },
+                                age: {
+                                    type: Number,
+                                    default: 24, // 默认值
+                                    validator: function(value) { // 自定义校验 函数中的 value 就是父组件传递过来的数据
+                                        console.error('年龄必须大于0岁');
+                                        return value > 0;
+                                    }
+                                },
+                                userInfo: {
+                                    type: Object,
+                                    // 当默认类型是 Array 或者 Object 的时候，必须要用一个工厂函数来返回他们，而不可以直接进行设置，否则会报错。
+                                    default: function() {
+                                        return {
+                                            id: 1,
+                                            count: 0
+                                        };
+                                    }
+                                },
+                                arr: {
+                                    type: Array,
+                                    default: function() {
+                                        return [1,2,3,4];
+                                    }
+                                }
+                            }
                         }
                     }
                 }
