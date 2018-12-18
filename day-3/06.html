@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>单项数据流</title>
+    <script src="../libs/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>父组件：{{name}}，{{age}}, {{user.mail}}</h1>
+        <input type="text" v-model="name">
+        <hr>
+        <my-saber :name="name" :age.sync="age" :user="user"></my-saber>
+    </div>
+
+    <template id="tpl-saber">
+        <div>
+            <h3>子组件</h3>
+            <h3>父组件传递来的数据: {{username}}, {{age}}, {{user.mail}}</h3>
+            <button @click="changeData">修改父组件传递来的 name</button>
+            <button @click="syncData">同步父子组件数据 age</button>
+            <button @click="arraySyncData">同步父子组件数据 mail 包装成数组</button>
+        </div>
+    </template>
+
+    <script>
+        new Vue({ // 父组件 Root
+            data: {
+                name: 'saber',
+                age: 23,
+                user: {
+                    mail: 'saberization@qq.com'
+                }
+            },
+            components: {
+                'my-saber': { // 子组件
+                    template: '#tpl-saber',
+                    data() {
+                        return {
+                            username: this.name // 方式1：将数据存入另一个变量中再操作
+                        };
+                    },
+                    props: {
+                        name: String,
+                        age: Number,
+                        user: Object
+                    },
+                    methods: {
+                        changeData() {
+                            this.username = 'rin';
+                        },
+
+                        syncData() {
+                            // 方式2：使用 .sync 修饰符，并且需要显示的触发一个更新事件 this.$emit('update:name', 'newdata')
+                            this.$emit('update:age', 24);
+                        },
+                        
+                        arraySyncData() {
+                            this.user.mail = '406142765@qq.com';
+                        }
+                    }
+                }
+            }
+        }).$mount('#app');
+    </script>
+</body>
+</html>
