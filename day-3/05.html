@@ -25,9 +25,11 @@
         <div>
             <h1>我是saber父组件</h1>
             <h2>访问自己的属性：{{msg}}, {{name}}, {{user}}, {{age}}</h2>
+            <h3>我是子组件传递过来的：{{sex}} {{mail}}</h3>
+            <hr>
             <!-- 这里使用 my-saber 组件的子组件 my-rin -->
             <!-- 在父组件里采用 v-bind 绑定给子组件，在子组件里采用 props 选项来接收父组件传递的数据 -->
-            <my-rin :message="msg" :name="name" :user="user" :age="age"></my-rin>
+            <my-rin :message="msg" :name="name" :user="user" :age="age" @evt-rin="getChildData"></my-rin>
         </div>
     </template>
 
@@ -35,6 +37,9 @@
         <div>
             <h4>我是rin组件，my-saber的子组件</h4>
             <h5>我是父组件传递来的数据：{{message}}, {{name}}, {{age}}, {{userInfo}}, {{arr}}</h5>
+            <h6>访问自己的数据：{{sex}}、{{mail}}</h6>
+
+            <button @click="send">将子组件数据传递给父组件</button>
         </div>
     </template>
 
@@ -49,13 +54,27 @@
                             msg: '一罐寡言',
                             name: 'saber',
                             age: 0,
+                            sex: '',
+                            mail: '',
                             user: {id: 1, username: 'altria'}
                         }
                     },
                     template: '#tpl-saber',
+                    methods: {
+                        getChildData(sex, mail) {
+                            this.sex = sex;
+                            this.mail = mail;
+                        }  
+                    },
                     // 定义 my-saber 的子组件 
                     components: {
                         'my-rin': {
+                            data() {
+                                return {
+                                    sex: 'women',
+                                    mail: 'saberization@qq.com'
+                                }
+                            },
                             template: '#tpl-rin',
                             // 子组件里采用 props 选项，来接收父组件传递来的数据
                             // props: ['message', 'name', 'user'], // 简单的字符串数组
@@ -88,6 +107,13 @@
                                     default: function() {
                                         return [1,2,3,4];
                                     }
+                                }
+                            },
+                            methods: {
+                                send() {
+                                    // 这里的 this 指的是 my-rin 当前组件
+                                    // 使用 $emit 触发一个事件，来发送数据
+                                    this.$emit('evt-rin', this.sex, this.mail);
                                 }
                             }
                         }
