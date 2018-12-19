@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子组件间的通信</title>
+    <script src="../libs/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-saber></my-saber>
+        <my-rin></my-rin>
+        <my-eriri></my-eriri>
+    </div>
+
+    <template id="tpl-saber">
+        <div>
+            <h3>MySaber组件：{{name}}</h3>
+        </div>
+    </template>
+
+    <template id="tpl-rin">
+        <div>
+            <h3>MyRin组件：{{name}}</h3>
+            <button @click="send">Rin组件将数据发送给 Eriri 组件</button>
+        </div>
+    </template>
+
+    <template id="tpl-eriri">
+        <div>
+            <h3>MyEriri组件：{{name}} {{username}}</h3>
+        </div>
+    </template>
+
+    <script>
+        // 定义一个空的 Vue 实例
+        var bas = new Vue();
+
+        var vm = new Vue({
+            components: {
+                'my-saber': {
+                    template: '#tpl-saber',
+                    data() {
+                        return {
+                            name: 'saber'
+                        }
+                    },
+                    mounted() {
+                        bas.$emit('saberSendToEriri', this.name);
+                    },
+                },
+                'my-rin': {
+                    template: '#tpl-rin',
+                    data() {
+                        return {
+                            name: 'rin'
+                        }
+                    },
+                    methods: {
+                        send() {
+                            bas.$emit('rinSendToEriri', this.name);
+                        }
+                    }
+                },
+                'my-eriri': {
+                    template: '#tpl-eriri',
+                    data() {
+                        return {
+                            name: '',
+                            username: ''
+                        }
+                    },
+                    // 一定要在模板编译完后监听
+                    mounted() {
+                        bas.$on('saberSendToEriri', msg => {
+                            this.name = msg;
+                        });
+
+                        bas.$on('rinSendToEriri', msg => {
+                            this.username = msg;
+                        });
+                    },
+                }
+            }
+        }).$mount('#app');
+    </script>
+</body>
+
+</html>
