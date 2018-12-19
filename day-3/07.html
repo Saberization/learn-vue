@@ -73,8 +73,8 @@
                             username: ''
                         }
                     },
-                    // 一定要在模板编译完后监听
-                    mounted() {
+                    // 一定要先用 $on 监听，在用 $emit 去触发事件，否则会失败
+                    created() {
                         bas.$on('saberSendToEriri', msg => {
                             this.name = msg;
                         });
