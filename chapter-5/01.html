@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>路由基本用法</title>
+
+    <style>
+        .active {
+            color: cornflowerblue;
+        }
+
+        .link {
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .exact-active-class {
+            text-decoration: none;
+        }
+    </style>
+
+    <script src="../libs/vue.js"></script>
+    <script src="../libs/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 使用 router-link 组件来定义导航，to 属性指定链接 url (自定义的，这个 path 相当于 window.history 生成一个地址) -->
+        <!-- router-link 相当于是一个 a 标签 -->
+        <router-link to="/home">主页</router-link>
+        <router-link to="/news">新闻</router-link>
+
+        <div>
+            <!-- router-view 用来显示路由匹配的内容 -->
+            <router-view></router-view>
+        </div>
+    </div>
+
+    <script>
+        // 1. 定义组件
+        const component_home = {
+            template: '<h3>我是主页</h3>'
+        };
+
+        const component_news = {
+            template: '<h3>我是新闻</h3>'
+        };
+
+        // 2. 配置路由
+        const routes = [{
+            path: '/home',
+            component: component_home
+        }, {
+            path: '/news',
+            component: component_news
+        }, {
+            // 路由的重定向，一定要做的，如果访问的页面没有，那就重定向到 /home 即 component_home
+            path: '*',
+            redirect: '/home'
+        }];
+
+        // 3. 创建路由的实例
+        const router = new VueRouter({
+            routes, // 简写，相当于 routes: routes
+            mode: 'history', // 更改模式，vue-router 默认是通过 hash 来模拟 url 达成 spa 效果的但是 url 会有 # 不好看，可以用 history
+            linkActiveClass: 'active' // 更改活动链接的 class 类名
+        });
+
+        // 4. 创建根实例，并将上面的 路由 挂载在 Vue 实例上
+        new Vue({
+            router // 简写，相当于 router: router， 这一步叫做注入路由
+        }).$mount('#app');
+    </script>
+</body>
+
+</html>
