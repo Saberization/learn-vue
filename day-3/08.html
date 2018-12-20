@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>内容分发</title>
+    <script src="../libs/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-saber>
+            <ul slot="slot-ul">
+                <li>aaa</li>
+                <li>bbb</li>
+                <li>ccc</li>
+            </ul>
+
+            <ol slot="slot-ol">
+                <li>111</li>
+                <li>222</li>
+                <li>333</li>
+            </ol>
+        </my-saber>
+    </div>
+
+    <template id="tpl-saber">
+        <div>
+            <slot name="slot-ul"></slot>
+            <h3>Saber template</h3>
+            <slot name="slot-ol"></slot>
+        </div>
+    </template>
+
+    <script>
+        new Vue({
+            components: {
+                'my-saber': {
+                    template: '#tpl-saber'
+                }
+            }
+        }).$mount('#app');
+    </script>
+</body>
+</html>
