@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>路由的嵌套、参数传递</title>
+    <script src="../libs/vue.js"></script>
+    <script src="../libs/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/home">主页</router-link>
+        <router-link to="/user">用户</router-link>
+
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+
+    <template id="user">
+        <div>
+            <h3>用户信息</h3>
+            <ul>
+                <!-- 字符串风格传参，在组件中用 $route.query 获取参数 -->
+                <router-link to="/user/login?name=saber&pwd=123" tag="li">用户登录</router-link>
+                <!-- rest 风格传参，要在子路由配置中设置，组件模板中采用 $route.params 获取参数 -->
+                <router-link to="/user/register/saber/pwd" tag="li">用户注册</router-link>
+            </ul>
+
+            <div>
+                <router-view></router-view>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        const component_home = {
+            template: '<h3>我是主页</h3>'
+        };
+
+        const component_user = {
+            template: '#user'
+        };
+
+        const component_user_login = {
+            template: '<h3>用户登录，获取 url 参数: {{$route.query}}</h3>'
+        };
+
+        const component_user_register = {
+            template: '<h3>用户注册， 获取参数：{{$route.params}}</h3>'
+        };
+
+        const routes = [{
+            path: '/home',
+            component: component_home
+        }, {
+            path: '/user',
+            component: component_user,
+            children: [{
+                path: 'login',
+                component: component_user_login
+            }, {
+                // rest 风格传参，要在路由配置中，配置
+                path: 'register/:name/:pwd',
+                component: component_user_register
+            }]
+        }, {
+            path: '*',  // 设置默认显示或者无地址的重定向到 /home
+            redirect: '/home'
+        }];
+
+        const router = new VueRouter({
+           routes 
+        });
+
+        new Vue({
+            router
+        }).$mount('#app');
+    </script>
+</body>
+</html>

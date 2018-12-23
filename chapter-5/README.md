@@ -17,3 +17,25 @@ npm install --save-dev vue-router
 ### 2. 基本用法
 
 a. 布局
+
+b. 路由配置
+
+### 3. 路由嵌套和参数传递
+
+传参的两种形式:
+
+a. 查询字符串: `login?name=saber&pwd=123`
+
+```js
+// 组件中获取方式 
+{{$route.query}}
+```
+
+b. `rest` 风格 url: `regist/saber/123`
+
+```js
+// 组件中获取方式
+{{$route.params}}
+```
+
+### 4. 路由实例的方法
