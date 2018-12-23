@@ -39,3 +39,10 @@ b. `rest` 风格 url: `regist/saber/123`
 ```
 
 ### 4. 路由实例的方法
+
+`router.push()`: 添加路由(更加确切的说是 `切换路由`、`跳转路由`，点击执行 `router-push({path: '/home'})` 直接 `跳转` 至 `/home` 的路由)，功能上与 `<router-link>` 相同
+
+`router.replace()`: 替换路由(`router.replace('/user') 跳转至 /user 路由，并删除当前路由(无法通过返回按钮返回)`)，不产生历史记录
+
+### 5. 路由结合动画
+

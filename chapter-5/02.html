@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>路由的嵌套、参数传递</title>
+    <link rel="stylesheet" href="../libs/animate.css">
     <script src="../libs/vue.js"></script>
     <script src="../libs/vue-router.js"></script>
 </head>
@@ -14,8 +15,13 @@
         <router-link to="/user">用户</router-link>
 
         <div>
-            <router-view></router-view>
+            <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+                <router-view></router-view>
+            </transition>
         </div>
+
+        <button @click="routerPush">添加路由</button>
+        <button @click="routerReplace">替换路由</button>
     </div>
 
     <template id="user">
@@ -29,7 +35,9 @@
             </ul>
 
             <div>
-                <router-view></router-view>
+                <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+                    <router-view></router-view>
+                </transition>
             </div>
         </div>
     </template>
@@ -75,7 +83,22 @@
         });
 
         new Vue({
-            router
+            router,
+            methods: {
+                routerPush() {
+                    // 添加路由，或者说是切换路由跳转更加确切
+                    router.push({
+                        path: '/home'
+                    });
+                },
+
+                routerReplace() {
+                    // 替换路由，跳转至 /user 路由，并删除当前路由(无法通过返回按钮返回)
+                    router.replace({
+                        path: '/user'
+                    });
+                }
+            }
         }).$mount('#app');
     </script>
 </body>
