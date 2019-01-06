@@ -8,7 +8,8 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 // 注册全局插件
-import Login from './components/user/login'
+import Login from './components/user/login';
+import store from './store';  // 导入 store 对象
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -26,5 +27,6 @@ new Vue({
   el: '#app',
   components: { App },
   template: '<App/>',
-  router
+  router,
+  store // 配置 sotre 选项，配置 store 对象，会自动的将 store 注入到子组件中，在子组件中用 this.$sotre 访问 store 对象
 })

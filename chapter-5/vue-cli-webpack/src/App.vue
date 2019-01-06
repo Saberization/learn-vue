@@ -17,6 +17,11 @@
 
     <!-- 自定义组件事件，需要添加一个修饰符 .native，否则直接绑定的事件无法执行 -->
     <myButton @click.native="send"></myButton>
+
+    <hr />
+
+    <button>增加</button>
+    <button>减少</button>
   </div>
 </template>
 
