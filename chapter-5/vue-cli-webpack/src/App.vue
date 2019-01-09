@@ -16,18 +16,21 @@
     <Login></Login>
 
     <!-- 自定义组件事件，需要添加一个修饰符 .native，否则直接绑定的事件无法执行 -->
-    <myButton @click.native="send"></myButton>
+    <!-- <myButton @click.native="send"></myButton> -->
 
     <hr />
 
-    <button>增加</button>
-    <button>减少</button>
+    <button @click="increment">增加</button>
+    <button @click="less">减少</button>
+    <p>当前数字：{{count}}</p>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
 import myButton from './components/myButton'
+
+import  { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -40,11 +43,21 @@ export default {
       console.log('路由发生变化，跳转到了: ' + newVal.path);
     }
   },
-  methods: {
-    send() {
-      console.log('myButton');
-    }
-  },
+  // 方式1: 通过 `this.$store` 访问
+  // computed: {
+  //   count() {
+  //     return this.$store.state.count
+  //   }
+  // },
+  
+  // 方式2: 通过 mpGetters 访问 store 中的数据
+  computed: mapGetters([
+    'count'
+  ]),
+  methods: mapActions([
+    'increment',
+    'less'
+  ]),
 }
 </script>
 
