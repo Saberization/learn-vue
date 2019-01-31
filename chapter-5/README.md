@@ -258,3 +258,21 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用�
 #### 2.2 创建 store.js 文件，在 main.js 入口文件中导入并配置 store 选项
 
 #### 2.3 编辑 store.js
+
+`Vuex` 的核心是 `store(仓库)`，相当于一个容器，一个 `store` 实例中包含了以下属性方法：
+
+- `state`: 定义属性(状态、数据)
+- `getters`: 用来获取数据的
+- `actions`: 定义方法(动作)
+  - `commit`: 提交变化，修改数据唯一方式就是显式的提交 mutations
+- `mutations`: 定义变化
+
+#### 2.4 编辑 App.vue
+
+在子组件中访问 `store` 对象的两种方式：
+
+方式1: 通过 `this.$store` 访问
+方式2: 通过 `mapGetters`、`mapActions` 访问，`vuex` 提供了两个方法：
+
+- `mapGetters` 获取属性(数据)
+- `mapActions` 获取方法(动作)
