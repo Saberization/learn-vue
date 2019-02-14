@@ -2,7 +2,7 @@
  * @Author: guotq
  * @Date: 2019-01-06 23:39:32
  * @Last Modified by: guotq
- * @Last Modified time: 2019-02-12 23:49:44
+ * @Last Modified time: 2019-02-13 23:54:19
  * @Description: vuex 的配置文件
  */
 
@@ -37,6 +37,22 @@ const actions = {
     if (state.count > 0) {
       commit('lessCount');
     }
+  },
+
+  incrementAsync({ commit, state }) {
+    // 异步的操作
+    let p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve();
+      }, 3000);
+    });
+
+    p.then(() => {
+      commit('addCount');
+    })
+    .catch(() => {
+      console.log('异步操作失败');
+    });
   }
 }
 

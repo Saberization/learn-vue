@@ -274,7 +274,8 @@ __注意：__ 不能直接修改数据，必须是显式的提交变化，目的
 在子组件中访问 `store` 对象的两种方式：
 
 方式1: 通过 `this.$store` 访问
-方式2: 通过 `mapGetters`、`mapActions` 访问，`vuex` 提供了两个方法：
+方式2: 通过 `mapState`、 `mapGetters`、`mapActions` 访问，`vuex` 提供了两个方法：
 
+- `mapState` 获取state
 - `mapGetters` 获取属性(数据)
 - `mapActions` 获取方法(动作)

@@ -22,6 +22,7 @@
 
     <button @click="increment">增加</button>
     <button @click="less">减少</button>
+    <button @click="incrementAsync">增加async</button>
     <p>当前数字：{{count}}</p>
   </div>
 </template>
@@ -30,7 +31,7 @@
 import HelloWorld from './components/HelloWorld'
 import myButton from './components/myButton'
 
-import  { mapGetters, mapActions } from 'vuex'
+import  { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -56,7 +57,8 @@ export default {
   ]),
   methods: mapActions([
     'increment',
-    'less'
+    'less',
+    'incrementAsync'
   ]),
 }
 </script>
