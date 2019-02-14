@@ -24,6 +24,7 @@
     <button @click="less">减少</button>
     <button @click="incrementAsync">增加async</button>
     <p>当前数字：{{count}}</p>
+    <p>{{ isEvenOdd }}</p>
   </div>
 </template>
 
@@ -52,8 +53,16 @@ export default {
   // },
   
   // 方式2: 通过 mpGetters 访问 store 中的数据
+  // computed: mapGetters([
+  //   'count'
+  // ]),
+  // 方式3：通过 mpState 访问 store 中的数据
+  // computed: mapState([
+  //   'count'
+  // ]),
   computed: mapGetters([
-    'count'
+    'count',
+    'isEvenOdd'
   ]),
   methods: mapActions([
     'increment',

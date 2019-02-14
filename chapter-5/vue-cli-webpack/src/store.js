@@ -2,7 +2,7 @@
  * @Author: guotq
  * @Date: 2019-01-06 23:39:32
  * @Last Modified by: guotq
- * @Last Modified time: 2019-02-13 23:54:19
+ * @Last Modified time: 2019-02-14 23:38:53
  * @Description: vuex 的配置文件
  */
 
@@ -16,9 +16,14 @@ const state = {
   count: 6
 }
 
+// 定义 getters 用来获取数据
 const getters = {
   count(state) {
     return state.count;
+  },
+
+  isEvenOdd(state) {
+    return state.count % 2 === 0 ? 'even' : 'odd';
   }
 }
 
