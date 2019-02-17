@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutation'
+import card from './modules/card'
 
 Vue.use(Vuex);
 
@@ -15,5 +16,7 @@ export default new Vuex.Store({
   getters,
   actions,
   mutations,
-  modules: {}
+  modules: {
+    card: card
+  }
 });

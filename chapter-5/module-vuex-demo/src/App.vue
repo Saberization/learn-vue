@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <button @click="addCount">增加</button>
-    {{count}}
+    {{count}} - {{price}}
     <button @click="lessCount">减少</button>
   </div>
 </template>
@@ -11,13 +11,18 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
-  computed: mapGetters([
-    'count'
-  ]),
-  methods: mapActions([
-    'addCount',
-    'lessCount'
-  ])
+  computed: {
+    ...mapGetters([
+      'count',
+      'price'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'addCount',
+      'lessCount'
+    ])
+  }
 }
 </script>
 
