@@ -1,9 +1,11 @@
+import { ADD, LESS } from './mutation-type';
+
 const mutations = {
-  add(state) {
+  [ADD](state) {
     state.count++;
   },
 
-  less(state) {
+  [LESS](state) {
     state.count--;
   }
 };

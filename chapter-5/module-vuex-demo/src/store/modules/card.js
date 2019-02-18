@@ -1,3 +1,5 @@
+import { ADD } from '../mutation-type';
+
 const state = {
   price: 100
 };
@@ -10,12 +12,13 @@ const getters = {
 
 const actions = {
   addPrice({ commit }) {
-    commit('add');
+    commit(ADD);
   }
 };
 
 const mutations = {
-  add(state) {
+  // 我们可以使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名
+  [ADD](state) {
     state.price++;
   }
 };
