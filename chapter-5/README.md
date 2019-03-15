@@ -279,3 +279,17 @@ __注意：__ 不能直接修改数据，必须是显式的提交变化，目的
 - `mapState` 获取state
 - `mapGetters` 获取属性(数据)
 - `mapActions` 获取方法(动作)
+
+### 3. 更好的组织vuex项目结构
+
+```
+|-src
+    |-store
+        |-index.js
+        |-getters.js
+        |-actions.js
+        |-mutation.js
+        |-modules  // 分为多个模块，每个模块都可以有自己的 state、getters、mutations、actions
+            |-user.js
+            |-card.js
+```
